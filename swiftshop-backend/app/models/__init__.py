@@ -3,6 +3,7 @@ from .user import User
 from .product import Product
 from .order import Order
 from .payment import Payment
+from .admin import admin
 
 from app.database import Base
 __all__ = [
@@ -10,5 +11,6 @@ __all__ = [
     "Product", 
     "Order",
     "Payment",
-    "Base"
+    "Base",
+    "admin"
 ]
