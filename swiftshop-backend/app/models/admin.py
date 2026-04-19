@@ -1,7 +1,3 @@
-"""
-Run this script once to create the default admin user.
-Usage: python create_admin.py
-"""
 
 from app.database import create_tables, SessionLocal
 from app.models import User
@@ -21,7 +17,7 @@ def create_admin():
 
     existing = db.query(User).filter(User.email == ADMIN_EMAIL).first()
     if existing:
-        print(f"⚠️  Admin already exists: {ADMIN_EMAIL}")
+        print(f"  Admin already exists: {ADMIN_EMAIL}")
         db.close()
         return
 
@@ -38,12 +34,12 @@ def create_admin():
     db.refresh(admin)
     db.close()
 
-    print("✅ Admin user created successfully!")
+    print(" Admin user created successfully!")
     print(f"   Email    : {ADMIN_EMAIL}")
     print(f"   Password : {ADMIN_PASSWORD}")
     print(f"   Role     : Admin")
     print()
-    print("👉 Login at: POST /api/v1/users/login")
+    print(" Login at: POST /api/v1/users/login")
     print("   Change the password after first login!")
 
 if __name__ == "__main__":
