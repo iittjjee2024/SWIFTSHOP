@@ -1,14 +1,21 @@
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker
 from app.config import DATABASE_URL
 
+# PostgreSQL engine
 engine = create_engine(
     DATABASE_URL,
-    connect_args={"check_same_thread": False} if "sqlite" in DATABASE_URL else {},
+    pool_pre_ping=True
 )
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)
+
 Base = declarative_base()
+
 
 def get_db():
     db = SessionLocal()
@@ -17,7 +24,8 @@ def get_db():
     finally:
         db.close()
 
+
 def create_tables():
-    # Import models to register them with Base before create_all()
-    from app.models import User, Product, Order, Payment
+    # Import models so SQLAlchemy registers them
+    from app.models import User, Product, Order, Payment, Admin
     Base.metadata.create_all(bind=engine)
