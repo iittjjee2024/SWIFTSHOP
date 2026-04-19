@@ -4,16 +4,25 @@ from datetime import datetime
 
 class UserBase(BaseModel):
     email: str
-    full_name: str
-    is_active: bool = True
-    is_admin: bool = False
+    first_name: str
+    last_name: str
+    phone: Optional[str] = None
 
-class UserCreate(UserBase):
+class UserCreate(BaseModel):
+    email: str
+    first_name: str
+    last_name: str
+    phone: Optional[str] = None
+    password: str
+
+class UserLogin(BaseModel):
+    email: str
     password: str
 
 class UserUpdate(BaseModel):
     email: Optional[str] = None
-    full_name: Optional[str] = None
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
     is_active: Optional[bool] = None
     is_admin: Optional[bool] = None
     password: Optional[str] = None
@@ -21,26 +30,16 @@ class UserUpdate(BaseModel):
 class User(UserBase):
     id: int
     created_at: datetime
-    updated_at: Optional[datetime]
     
     class Config:
         from_attributes = True
 
-class UserLogin(BaseModel):
-    email: str
-    password: str
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str = "bearer"
-
-class TokenData(BaseModel):
-    email: Optional[str] = None
-
-class UserProfile(BaseModel):
+class UserResponse(BaseModel):
     id: int
     email: str
-    full_name: str
+    first_name: str
+    last_name: str
+    phone: Optional[str]
     is_active: bool
     created_at: datetime
     

@@ -2,6 +2,8 @@ from datetime import datetime, timedelta
 from typing import Optional
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+from fastapi import HTTPException, Depends, status
+from fastapi.security import HTTPBearer
 import os
 from dotenv import load_dotenv
 
@@ -12,6 +14,7 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+security = HTTPBearer()
 
 def hash_password(password: str) -> str:
     """Hash a password using bcrypt"""
@@ -37,22 +40,24 @@ def verify_token(token: str) -> Optional[str]:
     """Verify and decode a JWT token"""
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
+        email: str = payload.get("sub")
+        if email is None:
             return None
-        return username
+        return email
     except JWTError:
         return None
-def get_current_user(token: str):
-    """Get current user from JWT token (for use as FastAPI dependency)"""
+
+def get_current_user(credentials = Depends(security)) -> str:
+    """Get current user email from JWT token (for use as FastAPI dependency)"""
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
     
-    username = verify_token(token)
-    if username is None:
+    token = credentials.credentials
+    email = verify_token(token)
+    if email is None:
         raise credentials_exception
     
-    return username
+    return email
