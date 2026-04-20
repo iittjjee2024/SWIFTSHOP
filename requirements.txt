@@ -1,36 +1,23 @@
-<<<<<<< HEAD
-# ── Web Framework ─────────────────────────────────────────────
-fastapi==0.104.1          # API framework (routes, middleware, DI)
-uvicorn==0.24.0           # ASGI server (runs the app)
-starlette==0.27.0         # BaseHTTPMiddleware (logging middleware)
-python-multipart==0.0.6   # Form/file upload support
+fastapi==0.104.1          
+uvicorn==0.24.0        
+starlette==0.27.0       
+python-multipart==0.0.6   
+sqlalchemy==2.0.23        
+psycopg2-binary==2.9.9    
+pydantic==2.5.0           
+pydantic[email]==2.5.0    
 
-# ── Database ──────────────────────────────────────────────────
-sqlalchemy==2.0.23        # ORM (models, sessions, queries)
-psycopg2-binary==2.9.9    # PostgreSQL driver (prod DB)
-# sqlite is built into Python — no install needed (dev DB)
+python-jose[cryptography]==3.3.0  
+cryptography==41.0.7            
+passlib[bcrypt]==1.7.4            
+bcrypt==4.1.1                    
+razorpay==1.3.0    
 
-# ── Data Validation ───────────────────────────────────────────
-pydantic==2.5.0           # Schemas & request/response validation
-pydantic[email]==2.5.0    # EmailStr support (user registration)
+httpx==0.25.2        
+requests==2.31.0       
 
-# ── Authentication ────────────────────────────────────────────
-python-jose[cryptography]==3.3.0  # JWT encode/decode
-cryptography==41.0.7              # JWT crypto backend
-passlib[bcrypt]==1.7.4            # Password hashing
-bcrypt==4.1.1                     # bcrypt backend for passlib
+python-dotenv==1.0.0      
 
-# ── Payments ──────────────────────────────────────────────────
-razorpay==1.3.0           # Razorpay SDK (order creation & verification)
-
-# ── HTTP Clients ──────────────────────────────────────────────
-httpx==0.25.2             # Async HTTP client
-requests==2.31.0          # Sync HTTP client
-
-# ── Environment ───────────────────────────────────────────────
-python-dotenv==1.0.0      # Load .env variables into os.environ
-
-=======
 pyaudio
 google-genai
 google-generativeai
@@ -50,4 +37,3 @@ pycaw
 win10toast
 duckduckgo-search
 youtube-transcript-api
->>>>>>> 9471c8a38abb9df49f02c03d0db6b93fb37a2e89
